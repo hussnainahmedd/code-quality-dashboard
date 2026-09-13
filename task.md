@@ -1,0 +1,20 @@
+- [x] Create project structure and configuration files (.env, docker, etc)
+- [x] Create FastAPI backend
+  - [x] Configure database, models, and schemas
+  - [x] Implement core logic (Analyzers, GitHub API wrapper)
+  - [x] Implement routers (Auth, Repositories, Analysis, Reports)
+  - [x] Demo mode functionality for easy testing
+- [x] Create React frontend
+  - [x] App shell (Sidebar, Header, Layout)
+  - [x] Reusable UI components (Cards, Badges, Loaders)
+  - [x] API services and auth context
+  - [x] Recharts implementations (ComplexityChart, Radar, etc)
+  - [x] Main Pages (Dashboard, Repository, Compare, Reports, Login, AuthCallback)
+- [x] Connect frontend to backend and test end-to-end
+  - [x] Audit backend route ordering to prevent collisions
+  - [x] Fix field mapping between frontend components and backend schemas
+  - [x] Complete production build to verify zero syntax errors
+- [x] UI Refinements
+  - [x] Upgrade design to premium custom UI (ambient glows, glassmorphism)
+  - [x] Setup custom Tailwind animations (fade-in, slide-up)
+- [x] Document usage instructions
