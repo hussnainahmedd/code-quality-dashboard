@@ -76,19 +76,38 @@ def analyze_python_file(code: str, file_path: str = "") -> dict:
                 "raw_metrics": {}, "halstead": {}, "complexity_blocks": []}
 
 def analyze_generic_file(code: str, file_path: str = "") -> dict:
-    """Basic metrics for non-Python files."""
+    """Basic metrics for non-Python files including naive complexity."""
+    import re
     lines = code.splitlines()
     total = len(lines)
     blank = sum(1 for l in lines if not l.strip())
     comment_markers = ["//", "#", "/*", "*", "<!--"]
     comments = sum(1 for l in lines if l.strip() and any(l.strip().startswith(m) for m in comment_markers))
     sloc = total - blank - comments
+    
+    # Naive cyclomatic complexity (Base 1 + branching keywords/operators)
+    complexity = 1
+    # Match JS/TS/Java/C type branching words and operators
+    complexity += len(re.findall(r'\b(if|for|while|catch|case)\b', code))
+    complexity += len(re.findall(r'(\&\&|\|\||\?)', code))
+    
+    # Scale maintainability slightly based on complexity and SLOC
+    mi_score = max(0.0, 100.0 - (complexity * 2.0) - (sloc / 20.0))
+    if mi_score >= 80: mi_rank = "A"
+    elif mi_score >= 50: mi_rank = "B"
+    else: mi_rank = "C"
+    
+    if complexity <= 5: cc_rank = "A"
+    elif complexity <= 10: cc_rank = "B"
+    elif complexity <= 20: cc_rank = "C"
+    else: cc_rank = "D"
+
     return {
         "file_path": file_path, "status": "success",
         "loc": total, "sloc": max(sloc, 0), "comments": comments, "blank": blank,
-        "avg_complexity": 0, "max_complexity": 0,
-        "maintainability_score": 50.0, "maintainability_rank": "B",
-        "complexity_rank": "A",
+        "avg_complexity": float(complexity), "max_complexity": complexity,
+        "maintainability_score": round(mi_score, 2), "maintainability_rank": mi_rank,
+        "complexity_rank": cc_rank,
         "raw_metrics": {"loc": total, "sloc": max(sloc, 0), "comments": comments, "blank": blank},
         "halstead": {}, "complexity_blocks": []
     }
