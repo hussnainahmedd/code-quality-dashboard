@@ -9,8 +9,8 @@ export const GRADE_COLORS = {
 
 export const LANGUAGE_COLORS = {
   Python: '#3572A5', py: '#3572A5',
-  JavaScript: '#f1e05a', js: '#f1e05a', jsx: '#f1e05a',
-  TypeScript: '#3178c6', ts: '#3178c6', tsx: '#3178c6',
+  JavaScript: '#f1e05a', js: '#f1e05a', jsx: '#61dafb',
+  TypeScript: '#3178c6', ts: '#3178c6', tsx: '#0ea5e9',
   Java: '#b07219', java: '#b07219',
   Go: '#00ADD8', go: '#00ADD8',
   Rust: '#dea584', rs: '#dea584',
